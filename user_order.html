@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Order – GM TOP UP</title>
+</head>
+<body>
+
+<h2>Order Now</h2>
+
+Package:  
+<input id="package" value="Weekly" readonly><br><br>
+
+Price:  
+<input id="price" value="120" readonly><br><br>
+
+UID:  
+<input id="uid" placeholder="Enter UID"><br><br>
+
+<button onclick="orderSubmit()">Submit Order</button>
+
+<script src="order.js"></script>
+
+<script>
+function orderSubmit(){
+    let p = document.getElementById("package").value;
+    let price = document.getElementById("price").value;
+    let uid = document.getElementById("uid").value;
+
+    if(uid === ""){
+        alert("UID দিন!");
+        return;
+    }
+
+    saveOrder(p, price, uid);
+}
+</script>
+
+</body>
+</html>
