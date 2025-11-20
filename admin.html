@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel – Orders</title>
+
+<style>
+table{
+    width:100%;
+    border-collapse: collapse;
+    margin-top:20px;
+}
+th, td{
+    border:1px solid #333;
+    padding:10px;
+    text-align:center;
+}
+button{
+    padding:6px 12px;
+}
+</style>
+
+</head>
+<body>
+
+<h2>📌 Admin Dashboard – Orders</h2>
+
+<table>
+<tr>
+    <th>Order ID</th>
+    <th>Package</th>
+    <th>Price</th>
+    <th>UID</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+<tbody id="orderData"></tbody>
+</table>
+
+<script>
+function loadOrders(){
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    let html = "";
+
+    orders.forEach((o, index)=>{
+        html += `
+            <tr>
+                <td>${o.id}</td>
+                <td>${o.package}</td>
+                <td>${o.price} BDT</td>
+                <td>${o.uid}</td>
+                <td>${o.status}</td>
+                <td>
+                    <button onclick="confirmOrder(${o.id})">Confirm</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    document.getElementById("orderData").innerHTML = html;
+}
+
+function confirmOrder(orderID){
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    orders = orders.map(o => {
+        if(o.id === orderID){
+            o.status = "Confirmed";
+        }
+        return o;
+    });
+
+    localStorage.setItem("orders", JSON.stringify(orders));
+    loadOrders();
+}
+
+loadOrders();
+</script>
+
+</body>
+</html>
